@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  maks-bot:
+    build: .
+    container_name: zhukov-bot
+    restart: always
+    working_dir: /app
+    volumes:
+      - ./src:/app
+    environment:
+      - TZ=Europe/Moscow
+    command: python bot.py
