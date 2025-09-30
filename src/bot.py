@@ -103,8 +103,6 @@ async def check_message(message: types.Message):
             text=answer,
             reply_parameters=ReplyParameters(
                 message_id=message.message_id,
-                quote=html.escape('?'),
-                quote_position=text.index('?'),
             ),
         )
 
