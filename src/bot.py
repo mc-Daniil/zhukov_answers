@@ -29,13 +29,15 @@ async def fetch_stickers():
         logging.exception("Error fetching sticker set '%s'", STICKER_PACK_ID)
 
 
-ANSWERS = [
+ANSWERS_VOT = [
     "Молодой человек!",
     "Непонятно объясняю?",
     "Ааааааааааах",
     "Вооооооооот",
     "Молодой человек, вы куда",
 ]
+
+ANSWERS_QUESTION = ["Это было на лекции!", "Это было на лекции..."]
 
 
 @router.message()
@@ -82,8 +84,8 @@ async def check_message(message: types.Message):
                     ),
                 )
         else:
-            # Отправить сообщение из ANSWERS
-            answer = random.choice(ANSWERS)
+            # Отправить сообщение из ANSWERS_VOT
+            answer = random.choice(ANSWERS_VOT)
             await bot.send_message(
                 chat_id=message.chat.id,
                 text=answer,
@@ -93,6 +95,18 @@ async def check_message(message: types.Message):
                     quote_position=len(text[:position]),
                 ),
             )
+
+    if '?' in text:
+        answer = random.choice(ANSWERS_QUESTION)
+        await bot.send_message(
+            chat_id=message.chat.id,
+            text=answer,
+            reply_parameters=ReplyParameters(
+                message_id=message.message_id,
+                quote=html.escape('?'),
+                quote_position=text.index('?'),
+            ),
+        )
 
     return
 
