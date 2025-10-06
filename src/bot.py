@@ -96,7 +96,7 @@ async def check_message(message: types.Message):
                 ),
             )
 
-    if '?' in text and random.choice([True, False]):
+    if '?' in text and random.choice([True, False, True, False, False]):
         answer = random.choice(ANSWERS_QUESTION)
         await bot.send_message(
             chat_id=message.chat.id,
